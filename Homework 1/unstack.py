@@ -1,10 +1,10 @@
 # COMP1730/6730 Homework 1.
 
 """
-Your ANU ID: u1234567
+Your ANU ID: u760590690
 I declare that this submission is my own work
 [ref: https://www.anu.edu.au/students/academic-skills/academic-integrity]
-Your NAME: George Gregan
+Your NAME: Aria Zhao
 """
 
 import robot
@@ -14,7 +14,7 @@ def right_two_spaces():
     robot.drive_right()
     robot.drive_right()
 
-def left_two__spaces():
+def left_two_spaces():
     robot.drive_left()
     robot.drive_left()
 
@@ -35,8 +35,8 @@ def unstack_to_the_left():
 ## Raise gripper and grasp the block one level up.
 ## Assumption: Gripper is folded and lift is at base level.
 def grasp_blocks_above():
-    robot.gripper_to_open()
     robot.lift_up()
+    robot.gripper_to_open()
     robot.gripper_to_closed()
 
 ## Put down the blocks we're holding, and position gripper to
