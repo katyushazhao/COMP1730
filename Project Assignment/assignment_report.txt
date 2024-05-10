@@ -1,0 +1,77 @@
+
+Individual report for the COMP1730/6730 project assignment S1 2024
+-------------------------------------------------------------------
+
+Question 1: Write your name and ANU ID
+
+    NAME: Aria Zhao
+    ANU ID: u7650690
+
+I declare that this submission is my own work
+[ref: https://www.anu.edu.au/students/academic-skills/academic-integrity ]
+-------------------------------------------------------------------
+
+Question 2: Select a piece of code in your assignment solution that
+you have written, and explain:    
+
+    SELECTED CODE:
+    def simulate_1d_diffusion(array):
+        """
+        Applies a nearest-neighbor averaging algorithm to a copy of the input array.
+        Returns the averaged copy of the input array.
+        Assumes the input array is 1D.
+        """
+        updated = array.copy()
+        for i in range(len(array)):
+            if i == 0:
+                updated[i]=(array[i]+array[i+1])/2
+            elif i == len(array) - 1:
+                updated[i]=(array[i-1]+array[i])/2
+            else:
+                updated[i]=(array[i-1]+array[i]+array[i+1])/3
+        return updated
+
+(a) What does this piece of code do?
+
+    This function returns the next array in the sequence for the 1D temperature diffusion simulation.
+    It assumes that the input array is 1D and will always output a 1D array of the same size.
+
+(b) How does it work?
+
+    First the function copies the input array, this is so that we have an array of the same size as the original which can be overwritten for the output.
+    Then the function iterates through every item in the new copy and does a check:
+        If the current item is the first item in the array, the value is equal to the average of the first and second value of the input array.
+        Else if the current item is the last item in the array, the value is equal to the average of the second last and last value of the input array.
+        Else the current item is the average of the previous, current and next values of the input array.
+    When the function has iterated through all the items, return the new array.
+
+(c) What other possible ways did you consider to implement this
+functionality, and why did you choose the one you did?
+
+    I considered the following alternate implementation of the function:
+
+        def simulate_1d_diffusion(array):
+                """
+                Applies a nearest-neighbor averaging algorithm to a copy of the input array.
+                Returns the averaged copy of the input array.
+                Assumes the input array is 1D.
+                """
+            updated = array.copy()
+            updated[0] = (array[0]+array[1])/2
+            updated[-1] = (array[-1]+array[-2])/2
+            for i in range(len(array)):
+                n = 3
+                if i == 0:
+                    updated[i]=(array[i]+array[i+1])
+                    n -= 1
+                else:
+                    try:
+                        updated[i]=(array[i-1]+array[i]+array[i+1])
+                    except IndexError:
+                        n -= 1
+                updated[i]/=n
+            return updated
+     
+    This alternate implementation is more elegant and is more inheritable. However I chose the final implementation as I decided the if, else, statements were more readable and more extendable to the 2D case.
+
+-------------------------------------------------------------------
