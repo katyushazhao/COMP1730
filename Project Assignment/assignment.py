@@ -22,17 +22,23 @@ def create_array():
     return [1,0,0,0,0,0,0,0,0,1]
 
 # Task 2
-
 def simulate_1d_diffusion(array):
     """ argument: current array
         returns updated array """
     updated = array.copy()
-    i = 1
     updated[0] = (array[0]+array[1])/2
     updated[-1] = (array[-1]+array[-2])/2
-    while i < len(array)-1:
-        updated[i]=(array[i-1]+array[i]+array[i+1])/3
-        i+=1
+    for i in range(len(array)):
+        n = 3
+        if i == 0:
+            updated[i]=(array[i]+array[i+1])
+            n -= 1
+        else:
+            try:
+                updated[i]=(array[i-1]+array[i]+array[i+1])
+            except IndexError:
+                n -= 1
+        updated[i]/=n
     return updated
 
 
@@ -126,7 +132,7 @@ def simulate_large_scale(num_iterations,size=10):
     pass
 
 # 2D diffusion (numpy implementation) exercise code:
-def exercise_2D_diffusion_numpy():    
+def exercise_2D_diffusion_numpy():
     simulate_large_scale(5)
 
 # Task 7:
