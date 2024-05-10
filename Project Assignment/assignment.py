@@ -18,13 +18,16 @@ from math import cos, sin, pi
 # Task 1
 
 def create_array():
-    """ returns created array """
+    """ Returns a 1D zero indexed array of length 10 with leading and trailing 1s."""
     return [1,0,0,0,0,0,0,0,0,1]
 
 # Task 2
 def simulate_1d_diffusion(array):
-    """ argument: current array
-        returns updated array """
+    """
+    Applies a nearest-neighbor averaging algorithm to a copy of the input array.
+    Returns the averaged copy of the input array.
+    Assumes the input array is 1D.
+    """
     updated = array.copy()
     for i in range(len(array)):
         if i == 0:
@@ -39,7 +42,10 @@ def simulate_1d_diffusion(array):
 # Task 3
 
 def plot_temperatures(initial, new, new2):
-    """parameters: initial=original array, new=after 1 iteration, new2=after 2 iterations"""
+    """
+    Plots the 3 input arrays overlayed on eachother.
+    Assumes input arrays are 1D and are the same length.
+    """
     X = list(range(len(initial)))
     Y1, Y2, Y3 = initial, new, new2
     fig, ax = plt.subplots()
@@ -59,8 +65,12 @@ def exercise_1D_diffusion():
 # Task 4
 
 def create_grid(size=5):
-    """ argument: grid division
-    returns size x size 2D grid as list of list """
+    """ 
+    Returns a square array of given side length.
+    Defaults to side length 5 if no length given.
+    Interior of returned array is all 0s and boundary cells are all 1s.
+    Assumes size is an integer.
+    """
     empty = [[0]*size for i in range(size)]
     for x in range(size):
         empty[0][x] = 1
@@ -72,8 +82,11 @@ def create_grid(size=5):
 # Task 5
 
 def simulate_2d_diffusion(grid):
-    """ argument: current 2D grid 
-    returns updated grid after one iteration of simulation """
+    """
+    Applies a nearest-neighbor averaging algorithm to a copy of the input array.
+    Returns the averaged copy of the input array.
+    Assumes the input array is 2D.
+    """
     updated = [x[:] for x in grid]
     for i in range(len(grid)):
         for j in range(len(grid[0])):
@@ -111,6 +124,11 @@ def exercise_2D_diffusion():
 # Task 6
 
 def simulate_multiple_iterations(grid, num_iterations):
+    """
+    modified version multiple_iterations() which plots the grids instead of printing to console.
+    requires an initial grid and number of iterations to plot as input.
+    assumes grid is a 2x2 array and num_iterations is an integer.
+    """
     for _ in range(num_iterations):
         plt.imshow(grid, cmap='hot', interpolation='nearest')
         plt.colorbar()
@@ -118,10 +136,12 @@ def simulate_multiple_iterations(grid, num_iterations):
         grid = simulate_2d_diffusion(grid)
 
 def simulate_large_scale(num_iterations,size=10):
-    """ arguments: num_iterations=number of iterations to perform,
-                   size=dimension of 2D grid 
-        No return value.
-        Use NumPy for efficient large-scale simulation and visualization, correctly handling edges."""
+    """
+    Simulates and plots the temperature diffusion for a given number of iterations on a 2x2 array.
+    The side length of the array defaults to 10 if no size is specified.
+    Interior of initial array is all 0s and boundary cells are all 1s.
+    Assumes size and num_iterations are integers.
+    """
     simulate_multiple_iterations(create_grid(size), num_iterations)
     pass
 
@@ -165,9 +185,13 @@ def visualize_graph(edges, temperatures):
     plt.show()
 
 def simulate_diffusion(edges, temperatures):
-    """ arguments: edges=edge list defining graph, 
-    temperatures=current temps of graph nodes
-    returns updated temperatures list"""
+    """
+    Applies a nearest-neighbor averaging algorithm to a copy of the input temperatures array.
+    Returns the averaged copy of the temperatures array.
+    Assumes edges and temperatures are the same length.
+    Assumes temperatures is a 1D array representing the temperature in each node.
+    Assumes edges is a 2D array edges[i] where i is the list of nodes connected to node i
+    """
     updated = temperatures.copy()
     for node in range(len(edges)):
         n = 1
