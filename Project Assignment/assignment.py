@@ -26,19 +26,13 @@ def simulate_1d_diffusion(array):
     """ argument: current array
         returns updated array """
     updated = array.copy()
-    updated[0] = (array[0]+array[1])/2
-    updated[-1] = (array[-1]+array[-2])/2
     for i in range(len(array)):
-        n = 3
         if i == 0:
-            updated[i]=(array[i]+array[i+1])
-            n -= 1
+            updated[i]=(array[i]+array[i+1])/2
+        elif i == len(array) - 1:
+            updated[i]=(array[i-1]+array[i])/2
         else:
-            try:
-                updated[i]=(array[i-1]+array[i]+array[i+1])
-            except IndexError:
-                n -= 1
-        updated[i]/=n
+            updated[i]=(array[i-1]+array[i]+array[i+1])/3
     return updated
 
 
